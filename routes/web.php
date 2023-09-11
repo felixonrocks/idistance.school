@@ -18,15 +18,15 @@ use App\Http\Controllers\BlogsController;
 Route::get('/', 'PagesController@index');
 Route::resource('blogs', 'BlogsController'::class);
 Route::resource('pages', 'PagesController'::class);
-Route::resource('widgets', 'WidgetsController'::class);
-Route::resource('events', 'EventsController'::class);
+Route::resource('classes', 'ClassesController'::class);
+Route::resource('downloads', 'DownloadsController'::class);
 Route::resource('images', 'ImagesController'::class);
 Route::resource('products', 'ProductsController'::class);
 
-Route::get('ml', 'PagesController@ml');
-Route::get('hwr', 'PagesController@hwr');
+;
 Route::get('contact', 'PagesController@contact');
-Route::get('types', 'PagesController@types');
+Route::get('about', 'PagesController@about')->name('about');
+
 Route::post('contactus', 'PagesController@contactus');
 
 Route::get('/dashboard', function () {

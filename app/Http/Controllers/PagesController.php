@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\blog;
-use App\Models\Event;
+use App\Models\Blog;
+use App\Models\Chapter;
+use App\Models\Classe;
+use App\Models\Course;
+use App\Models\Download;
+use App\Models\Image;
 use App\Models\Message;
 use App\Models\Page;
 use App\Models\Product;
@@ -18,17 +22,32 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $topmenu;
+    public $classmenu;
+    public $images;
+    public $news;
+    public $sidemenu;
+    public $chapters;
+
+    public function __construct(){
+        $this->topmenu = Page::orderBy('order_n', 'asc')->get()->toArray();
+        $this->classmenu = Classe::orderBy('id')->get(['id', 'title'])->toArray();
+        $this->news = Blog::orderBy('created_at', 'asc')->take(3)->get();
+        $this->images =  Image::orderBy('created_at', 'asc')->take(8)->get();
+        $this->sidemenu = Course::orderBy('created_at', 'asc')->take(8)->get();
+        $this->chapters = Chapter::orderBy('class_id')->get();
+    }
+
     public function index()
     {
-        $menuitems = Page::orderBy('orderby', 'asc')->get(['id', 'title', 'link'])->toArray();
-        $news = blog::orderBy('created_at', 'asc')->take(3)->get();
-        $events = Event::orderBy('created_at', 'asc')->take(4)->get();
-        $images = blog::orderBy('created_at', 'asc')->take(8)->get();
-        return view('default.default')->with([
-            'menuitems' => $menuitems,
-            'news'=> $news,
-            'events' => $events,
-            'images' => $images,
+        //dd($this->sidemenu);
+        return view('layouts.default.main')->with([
+            'topmenu' => $this->topmenu,
+            'news'=> $this->news,
+            'images' => $this->images,
+            'classmenu' => $this->classmenu,
+            'sidemenu' => $this->sidemenu,
+            'chapters' => $this->chapters,
             ]);
     }
 
@@ -111,13 +130,7 @@ class PagesController extends Controller
         ]);
     }
 
-    public function hwr()
-    {
-        $menuitems = Page::orderBy('orderby', 'asc')->get(['id', 'title', 'link'])->toArray();
-        return view('default.hwr')->with([
-            'menuitems' => $menuitems,
-        ]);
-    }
+
     public function contact(){
             $message="";
             $menuitems = Page::orderBy('orderby', 'asc')->get(['id', 'title', 'link'])->toArray();
@@ -178,5 +191,23 @@ class PagesController extends Controller
             'menuitems' => $menuitems,
             'message' => $message,
         ]);
+    }
+
+
+    //выводит страницу About
+    public function about(){
+        //$result = $this->model->gettext('main', 'about');
+        $text = Page::where('id', 5)->get()->toArray();
+
+        return view ('layouts.default.about')->with([
+            'text' => $text,
+
+            'topmenu' => $this->topmenu,
+            'news'=> $this->news,
+            'images' => $this->images,
+            'classmenu' => $this->classmenu,
+            'sidemenu' => $this->sidemenu,
+        ]);
+
     }
 }
