@@ -313,11 +313,11 @@
         @endforeach
 
     {{--SEARCH--}}
-        <form class="flex inline-flex items-center text-center h-[100%] my-2 my-lg-0  " action="#" method="POST">
+        <form class="flex inline-flex items-center text-center h-[100%] my-2 my-lg-0 ml-12 " action="#" method="POST">
             @CSRF
 
-            <input class="rounded h-[25px] my-auto border-gray-300 mr-sm-2" type="search" name="search" placeholder="Search" >
-            <button class="btn success text-success border-success h-[25px] text-center items-center my-2 my-sm-0" type="submit" name="search">search</button>
+            <input class="rounded h-[25px] my-auto border-gray-300 mr-sm-2" type="search" name="search" placeholder=" {{ __('sections.search') }}" >
+            <button class="btn success text-success border-success h-[25px] flex text-center items-center px-2 w-full" type="submit" name="search">{{ __('sections.search') }}</button>
         </form>
 
     {{--    LANGAUGE TOGGLE--}}
@@ -419,7 +419,7 @@
                                 </svg>
                             </a>
 
-   <p class="pl-2"> &copy; 2018-2023 idistance.school</p>
+   <p class="pl-2"> &copy; 2018-{{ date('Y') }} idistance.school</p>
 </footer>
 </html>
 

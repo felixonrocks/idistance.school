@@ -10,7 +10,7 @@
             <!-- HEADER SECTION -->
             <div class="lead pt-12">
                 <h2 class="">idistance.school</h2>
-                programme virtuelle pour vous aider
+                {{ __('sections.slogan') }}
             </div>
 
 
@@ -19,11 +19,11 @@
 
             <!-- NEWS SECTION -->
             <div class=" mt-3 maincontainer w-[70%]">
-                <div class="pl-4">
+                <div class=" ">
                     <h2>News<!----><?php //=$title; ?><!----> </h2>
 
                     @foreach($news as $new)
-                        <div class="container"></div>
+                        <div class="container pl-4">
                             <p class="italic py-2">{{ $new->title_ru }}</p>
                             <p>{{ $new->content_ru }}</p>
                             <h5 class = 'mt-5'><?//=$val['title']; ?></h5>
@@ -39,9 +39,10 @@
                 {{--        <p class = 'mb-4 ml-4'><!----><?php //=$val['content']; ?></p>--}}
                    @endforeach
 
+                </div>
             </div>
-
         </div>
+
 {{--        RIGHT MENU--}}
         <div class="w-[30%] bg-light">
         <li class=" text-center pt-12 px-2 h-screen">Analytics by
