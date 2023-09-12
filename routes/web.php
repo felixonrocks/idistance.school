@@ -22,9 +22,12 @@ Route::resource('classes', 'ClassesController'::class);
 Route::resource('downloads', 'DownloadsController'::class);
 Route::resource('images', 'ImagesController'::class);
 Route::resource('products', 'ProductsController'::class);
+Route::resource('chapters', 'ChaptersController'::class);
+Route::resource('emails', 'EmailsController'::class);
+Route::resource('courses', 'CoursesController'::class);
+Route::resource('downloads', 'DownloadsController'::class);
 
-;
-Route::get('contact', 'PagesController@contact');
+Route::get('contact', 'EmailsController@create')->name('contact');
 Route::get('about', 'PagesController@about')->name('about');
 
 Route::post('contactus', 'PagesController@contactus');

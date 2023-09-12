@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chapter;
+use App\Models\Classe;
+use App\Models\Course;
+use App\Models\Image;
 use App\Models\Symbol;
 use Illuminate\Http\Request;
 use App\Models\Blog;
@@ -14,16 +18,37 @@ class BlogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public $topmenu;
+    public $classmenu;
+    public $images;
+    public $news;
+    public $sidemenu;
+    public $chapters;
+
+    public function __construct(){
+        $this->topmenu = Page::orderBy('order_n', 'asc')->get()->toArray();
+        $this->classmenu = Classe::orderBy('id')->get(['id', 'title'])->toArray();
+        $this->news = Blog::orderBy('created_at', 'asc')->take(3)->get();
+        $this->images =  Image::orderBy('created_at', 'asc')->take(8)->get();
+        $this->sidemenu = Course::orderBy('created_at', 'asc')->take(8)->get();
+        $this->chapters = Chapter::orderBy('class_id')->get();
+    }
     public function index()
     {
 
-        $menuitems = Page::orderBy('orderby', 'asc')->get(['id', 'title', 'link',])->toArray();
         $paginator = Blog::paginate(5);
-        $symbols = Symbol::all()->pluck('svg','id');
-        return view('default.blogs')->with([
-            'menuitems' => $menuitems,
+
+        return view('layouts.default.blogs')->with([
             'paginator' => $paginator,
-            'symbols' => $symbols,
+
+            'topmenu' => $this->topmenu,
+            'news'=> $this->news,
+            'images' => $this->images,
+            'classmenu' => $this->classmenu,
+            'sidemenu' => $this->sidemenu,
+            'chapters' => $this->chapters,
+
         ]);
     }
 

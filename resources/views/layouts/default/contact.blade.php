@@ -8,8 +8,7 @@
         <div class=" w-full bg-blue-50 ">
             <div class="px-[30%]">
                 <h5 class="py-5 font-bold text-3xl w-full text-gray-600 ">Have some questions? </h5>
-                <p class="text-gray-600 px-5 ">Av. Pictet-de-Rochemont 33BIS Geneva</p>
-                <p class="text-gray-600 px-10">contact@swisstechglobal.com</p>
+                <p class="text-gray-600 px-10">contact@idistance.school</p>
             </div>
             <section class="inline-flex w-full py-5 pb-20">
     {{--            image--}}

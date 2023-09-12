@@ -34,12 +34,18 @@ class PagesController extends Controller
         $this->classmenu = Classe::orderBy('id')->get(['id', 'title'])->toArray();
         $this->news = Blog::orderBy('created_at', 'asc')->take(3)->get();
         $this->images =  Image::orderBy('created_at', 'asc')->take(8)->get();
-        $this->sidemenu = Course::orderBy('created_at', 'asc')->take(8)->get();
+        $this->sidemenu = Course::where('class_id', 1)-> orderBy('created_at', 'asc')->get();
         $this->chapters = Chapter::orderBy('class_id')->get();
     }
 
     public function index()
     {
+       // dd($this->sidemenu[6]);
+//        $chapters = $this->chapters;
+//        $sideitems = $this->sidemenu->mapToGroups(function ($chapters, $lesson) {
+//            return [$lesson['course_id'] => $chapters];
+//        })->toArray();
+
         //dd($this->sidemenu);
         return view('layouts.default.main')->with([
             'topmenu' => $this->topmenu,
@@ -137,6 +143,7 @@ class PagesController extends Controller
             return view('default.contact')->with([
                 'menuitems' => $menuitems,
                 'message'=>$message,
+                'chapters' => $this->chapters,
             ]);
     }
     public function types(){
@@ -207,6 +214,7 @@ class PagesController extends Controller
             'images' => $this->images,
             'classmenu' => $this->classmenu,
             'sidemenu' => $this->sidemenu,
+            'chapters' => $this->chapters,
         ]);
 
     }

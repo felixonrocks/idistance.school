@@ -6,18 +6,18 @@ use App\Models\blog;
 use App\Models\Chapter;
 use App\Models\Classe;
 use App\Models\Course;
+use App\Models\Email;
 use App\Models\Image;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
-class ClassesController extends Controller
+class EmailsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public $topmenu;
     public $classmenu;
     public $images;
@@ -33,6 +33,7 @@ class ClassesController extends Controller
         $this->sidemenu = Course::orderBy('created_at', 'asc')->take(8)->get();
         $this->chapters = Chapter::orderBy('class_id')->get();
     }
+
     public function index()
     {
         //
@@ -45,7 +46,14 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.default.contact')->with([
+            'topmenu' => $this->topmenu,
+            'news'=> $this->news,
+            'images' => $this->images,
+            'classmenu' => $this->classmenu,
+            'sidemenu' => $this->sidemenu,
+            'chapters' => $this->chapters,
+        ]);
     }
 
     /**
@@ -62,35 +70,21 @@ class ClassesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function show(Classe $classe, $request )
+    public function show(Email $email)
     {
-        $currentclass = $request;
-        $sidemenu = Course::where('class_id', $request)->orderBy('created_at', 'asc')->take(8)->get();
-        $chapitre = Classe::where('id', $request)->get();
-
-
-        return view('layouts.default.lesson')->with([
-            'sidemenu' => $sidemenu,
-            'currentclass' =>$currentclass,
-            'chapitre' => $chapitre,
-
-            'topmenu' => $this->topmenu,
-            'images' => $this->images,
-            'classmenu' => $this->classmenu,
-            'chapters' => $this->chapters,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function edit(Classe $classe)
+    public function edit(Email $email)
     {
         //
     }
@@ -99,10 +93,10 @@ class ClassesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Classe $classe)
+    public function update(Request $request, Email $email)
     {
         //
     }
@@ -110,10 +104,10 @@ class ClassesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Classe  $classe
+     * @param  \App\Models\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Classe $classe)
+    public function destroy(Email $email)
     {
         //
     }

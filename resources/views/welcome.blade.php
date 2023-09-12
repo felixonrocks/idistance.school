@@ -7,17 +7,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>iSchool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://swisstechglobal.com/public_html/public/styles/style.css">
-     -->
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
 
       body{
-          padding:0
+          padding:0;
+          margin: 0;
+          font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #212529;
+          text-align: left;
+          background-color: #fff!important;
       }
 
       li{
@@ -47,11 +53,7 @@
           color: #17a2b8;
       }
 
-      .TM{
-          width: 100%;
-          padding:0;
-          margin: 0
-      }
+
 
       .FI{
           width: 400px;
@@ -106,9 +108,17 @@
         text-decoration-thickness: initial;
         text-decoration-style: initial;
         text-decoration-color: initial;
-        display: block;
-        padding: 3px;
+        /*display: block;*/
+
+
+
       }
+
+      .themes{
+          font-size: .8em;
+
+      }
+
 
       .maincontainer{
         max-width: 80%;
@@ -154,6 +164,21 @@
       a:hover{
         color: #007bff;
       }
+
+      .collapsible{outline: none;}
+
+      .content{ display: none;
+          overflow: hidden; cursor: pointer; outline: none; padding: 0 18px;}
+
+      details > summary {
+          list-style: none;
+      }
+
+      details > summary::marker, /* Latest Chrome, Edge, Firefox */
+      details > summary::-webkit-details-marker /* Safari */ {
+          display: none;
+      }
+
 
 
       /* SMALL DEVICES */
@@ -276,35 +301,35 @@
 
 <!-- MAIN SECTION -->
 
-<header>
+<header class="bg-light">
 <div class="col-sm-1 col-md-8 py-1 maincontainer h-full flex inline-flex text-center items-center bg-gray-50 w-[100%]">
 
 {{--    TOPMENU--}}
-    <nav class="flex inline-flex text-center items-center ">
+    <nav class="flex inline-flex text-center items-center bg-light">
         <a href="{{ env('APP_URL') }}"><img src="{{ env('APP_URL').'/img/logo1.png' }}" class="w-[40px]"></a>
         <h2>Ischool<?php //=$title; ?><!----></h2>
         @foreach($topmenu as $item)
             <a href="{{ env('APP_URL').'/'.$item['link'] }}"><p class="px-2 text-[#007bff]">{{ $item['title_'.app()->getLocale()]  }}</p></a>
         @endforeach
-    </nav>
+
     {{--SEARCH--}}
-    <form class="flex inline-flex items-center text-center h-[100%] " action="#" method="POST">
-        @CSRF
+        <form class="flex inline-flex items-center text-center h-[100%] my-2 my-lg-0  " action="#" method="POST">
+            @CSRF
 
-        <input class="rounded h-[25px] my-auto border-gray-300" type="text" name="search">
-        <button class="btn success text-success border-success h-[25px] text-center items-center" type="submit" name="search">search</button>
-    </form>
+            <input class="rounded h-[25px] my-auto border-gray-300 mr-sm-2" type="search" name="search" placeholder="Search" >
+            <button class="btn success text-success border-success h-[25px] text-center items-center my-2 my-sm-0" type="submit" name="search">search</button>
+        </form>
 
-{{--    LANGAUGE TOGGLE--}}
-    <div class="fixed top-0 right-2 px-3 py-1 sm:block">
-        @foreach(config('app.available_locales') as $area)
-            <a href="{{request()->url() }}?language={{ $area }}"
-               class="@if ( app()->getLocale() == $area ) border-b border-white border-b-2  @endif inline-flex items-center px-1">
-                {{strtoupper($area)}}
-            </a>
-        @endforeach
-    </div>
-
+    {{--    LANGAUGE TOGGLE--}}
+        <div class="fixed top-0 right-2 px-3 py-1 sm:block bg-light ">
+            @foreach(config('app.available_locales') as $area)
+                <a href="{{request()->url() }}?language={{ $area }}"
+                   class="@if ( app()->getLocale() == $area ) border-b border-white border-b-2  @endif inline-flex items-center px-1">
+                    {{strtoupper($area)}}
+                </a>
+            @endforeach
+        </div>
+    </nav>
 {{--    LOGIN--}}
     <div class="relative flex items-top justify-center  sm:items-center sm:pt-0 " >
                     @if (Route::has('login'))
@@ -326,30 +351,45 @@
 
 
 {{--CLASSES MENU--}}
-<nav class="flex inline-flex shadow py-2 w-full">
+<nav class="flex inline-flex shadow-sm py-2 w-full bg-white">
     @foreach($classmenu as $item)
         <a href="{{ route('classes.show', $item['id']) }}"><div class="px-4 text-[#007bff]"> {{ $item['title'] }}</div></a>
 
 
     @endforeach
+
+
 </nav>
 </header>
 
 {{--MAIN--}}
-<section class="flex inline-flex mt-12 w-full sidecontainer ">
+<section class="flex inline-flex  w-full min-h-full   ">
     {{--LEFT MENU--}}
-        <nav class="ml-4 w-[200px] container TM">
-            @foreach($sidemenu as $course)
-                <ul class="text-[#369] nav-bar myDiv topcontainer navbar-light bg-light flex flex-col row TM">
-                    <a href="{{ route('classes.show', $course->id) }}" class=""><li class="nav-item list-unstyled topnavitem mb-1">{{ $course->{'title_'.app()->getLocale()} }}</li></a>
-                    @foreach($chapters->where('course_id', $course->id) as $chapter)
-                        <li class="nav-link modules">{{ $chapter->title_ru }}</li>
-                    @endforeach
-                </ul>
+        <nav class="px-4 w-[200px] pt-12  bg-light text-[#369] modules   flex flex-col  items-start h-screen ">
 
+
+            @foreach($sidemenu as $course)
+                <details >
+                        <summary  class="list-unstyled  mb-1 nav-item">
+                            {{ $course->{'title_'.app()->getLocale()} }}
+                        </summary>
+                                @foreach( $chapters->where('course_id', $course->id) as $chapter)
+
+
+                                        <li class="ml-8  ">
+                                            <a href="{{ route('chapters.show', $chapter->id) }}" class=" themes">
+                                                <p>{{ $chapter->title_ru }}</p>
+                                            </a>
+                                        </li>
+                                @endforeach
+                </details>
             @endforeach
+
+
+
+
         </nav>
-    <main class="w-full ">
+    <main class="w-full ml-4 ">
      @yield('content')
     </main>
 </section>
@@ -359,7 +399,7 @@
 
 </body>
 
-<footer class="flex inline-flex bg-gray-50  text-gray-500 h-[50px] text-sm  items-center m-auto w-full position-absolute bottom-0 left-0 pl-2" >
+<footer class="flex inline-flex bg-gray-50  text-gray-500 h-[50px] text-sm  items-center m-auto w-full mb-2 pl-2" >
 
 
     <div class="flex items-center">
@@ -383,3 +423,23 @@
 </footer>
 </html>
 
+
+
+
+
+{{--<script>--}}
+{{--    var coll = document.getElementsByClassName("collapsible");--}}
+{{--    var i;--}}
+
+{{--    for (i = 0; i < coll.length; i++) {--}}
+{{--        coll[i].addEventListener("click", function() {--}}
+{{--            this.classList.toggle("active");--}}
+{{--            var content = this.nextElementSibling;--}}
+{{--            if (content.style.display === "block") {--}}
+{{--                content.style.display = "none";--}}
+{{--            } else {--}}
+{{--                content.style.display = "block";--}}
+{{--            }--}}
+{{--        });--}}
+{{--    }--}}
+{{--</script>--}}

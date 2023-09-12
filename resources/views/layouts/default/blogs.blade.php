@@ -6,7 +6,7 @@
 
     <main class="h-full">
         {{--        TITLE--}}
-        <h2 class="text-3xl font-bold m-auto pt-5 ml-10"><a href="/blogs/">AI news</a></h2>
+        <h2 class="text-3xl font-bold m-auto pt-5 ml-10"><a href="/blogs/"> news</a></h2>
 
     @foreach($paginator as $item)
         <div class="bg-white shadow rounded  m-10 p-12 w-[90%] mb-20">
@@ -14,11 +14,7 @@
                 {{--            DATE--}}
                 <div class="w-1/3">{{substr($item->created_at, 0, 10)}}</div>
                 {{--        SYMBOLS--}}
-                <div class="inline-flex w-1/3">
-                    @foreach($symbols as $symbol)
-                        {!!$symbol!!}
-                    @endforeach
-                </div>
+
             </div>
             {{--            COMPANY--}}
             <div class="inline-flex w-full mb-5">

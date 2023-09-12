@@ -2,16 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\blog;
 use App\Models\Chapter;
+use App\Models\Classe;
+use App\Models\Course;
+use App\Models\Image;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
-class ChapterController extends Controller
+class ChaptersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public $topmenu;
+    public $classmenu;
+    public $images;
+    public $news;
+    public $sidemenu;
+    public $chapters;
+
+    public function __construct(){
+        $this->topmenu = Page::orderBy('order_n', 'asc')->get()->toArray();
+        $this->classmenu = Classe::orderBy('id')->get(['id', 'title'])->toArray();
+        $this->news = Blog::orderBy('created_at', 'asc')->take(3)->get();
+        $this->images =  Image::orderBy('created_at', 'asc')->take(8)->get();
+        $this->sidemenu = Course::orderBy('created_at', 'asc')->take(8)->get();
+        $this->chapters = Chapter::orderBy('class_id')->get();
+    }
     public function index()
     {
         //
@@ -44,9 +65,24 @@ class ChapterController extends Controller
      * @param  \App\Models\Chapter  $chapter
      * @return \Illuminate\Http\Response
      */
-    public function show(Chapter $chapter)
+    public function show($request)
     {
-        //
+        $chapitre = Chapter::where('id', $request)->get();
+        $currentclass = $request;
+        //Classe::where('class_id', $request)->get();
+
+        return view('layouts.default.lesson')->with([
+            'currentclass' => $currentclass,
+            'chapitre' => $chapitre,
+
+            'topmenu' => $this->topmenu,
+            'news'=> $this->news,
+            'images' => $this->images,
+            'classmenu' => $this->classmenu,
+            'sidemenu' => $this->sidemenu,
+            'chapters' => $this->chapters,
+
+        ]);
     }
 
     /**

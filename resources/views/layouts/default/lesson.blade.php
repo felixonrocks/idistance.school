@@ -4,49 +4,43 @@
 
 
 
-    <?php
-// namespace application\views\main;
-
-// use application\core\View;
-// use application\core\Models\Main;
-// use application\controllers\MainController;
-
-// class News extends View{
-
-//   public function rendernews($result){
-
-//         echo 'hi';
-//         debug($result);
-//         if(!$result == NULL){
-//             echo 'hi';
-//                 //foreach($result as $value){
-//                     //foreach($value as $val){
-//                     //   echo  "<p>";
-//                     //   print_r($result);
-//                       // echo "</p>";
-//                     //}
-//                 //}
-//                 //return $this->result;
+        <div class="w-full  flex inline-flex">
+            {{--      HEADER      --}}
+            <div class="flex flex-col w-[70%]">
+                <div class="mt-4  ">
+                    <!-- $title переменная задана в mainController.php -->
+                    <h2 class="lead">title</h2>
+                </div>
 
 
+                <div class="lead container">
+                    latest updates on this site
+                </div>
+                {{--MAIN TEXT--}}
+                <div class="">
+
+                    <h2>Class  <!----><?php //=$title; ?><!----> </h2>
+                    <p>{{ $chapitre[0]->content_ru }}</p>
+
+                    <!-- переменные заданные в mainController.php из массива $vars -->
+                    <p><?php //echo $resulttext['text']; ?><!----></p>
+                </div>
+
+            </div>
 
 
-//         }else{echo "<p>no news in db</p>";}
-//     }
-//    ?>
 
-        <!-- MAIN SECTION -->
 
-    </div>
-    <div class="col-sm-3 col-md-8 mt-3 maincontainer border">
 
-        <div class="">
-            <h2>Class {{ $currentclass }}<!----><?php //=$title; ?><!----> </h2>
-            <p>General program</p>
 
-            <!-- переменные заданные в mainController.php из массива $vars -->
-            <p><?php //echo $resulttext['text']; ?><!----></p>
 
+{{--IAMGES--}}
+
+
+
+        <section class="border w-[30%]">
+            Images
+        </section>
 
 
 
@@ -62,17 +56,6 @@
 
     <!-- WEB TITLE -->
 
-
-    <div class="container">
-        <div class="mt-4">
-            <!-- $title переменная задана в mainController.php -->
-            <h2 class=""><!---->title</h2>
-        </div>
-        <div class="lead container">
-            latest updates on this site
-        </div>
-
-    </div>
 
 
 
